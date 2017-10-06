@@ -36,8 +36,10 @@ function create() {
      //  This stops it from falling away when you jump on it
     ground.body.immovable = true;
 
+    ground.inputEnabled = true;
+    ground.events.onInputDown.add(listener, this);
     //  Now let's create two ledges
-    var ledge = platforms.create(400, 400, 'ground');
+    var ledge = platforms.create(400,400, 'ground');
 
     ledge.body.immovable = true;
 
@@ -97,10 +99,9 @@ function update() {
     if (cursors.left.isDown)
     {
         //  Move to the left
-        player.body.velocity.x = -150;
-
+        player.body.velocity.x = -150;        
         player.animations.play('left');
-        lastDir = 'left';
+        // lastDir = 'left';
     }
     else if (cursors.right.isDown)
     {
@@ -133,4 +134,9 @@ function collectStar (player, star) {
     //  Add and update the score
     score += 10;
     scoreText.text = 'Score: ' + score;
+}
+
+function listener (ground) {
+    ground.body.velocity.x = -800;
+    console.log("test here");
 }
